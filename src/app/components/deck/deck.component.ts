@@ -11,7 +11,7 @@ import { Card } from '../../models/Card';
   styleUrls: ['./deck.component.css']
 })
 export class DeckComponent implements OnInit {
-  static rankArray: string[] = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
+  static rankArray: string[] = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
   static suitArray: string[] = ['clubs', 'hearts', 'diamonds', 'spades'];
   deck: Deck = {cards: []};
 

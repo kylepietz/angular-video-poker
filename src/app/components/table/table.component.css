@@ -1,3 +1,25 @@
+.card {
+  height: 200px;
+  width: 100px;
+  border-color: black;
+  border-width: 1.8px;
+  padding-top: 50px;
+  /*
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  */
+}
+
 .held-card {
-  color: red;
+  border-color: red;
+}
+
+.rank-suit-centered {
+  margin: 0 auto;
+}
+
+.card-rank {
+  font-size: 50px;
 }

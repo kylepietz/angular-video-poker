@@ -1,4 +1,6 @@
+<br>
 <h1>Video Poker</h1>
+<br>
 <!-- Betting stage -->
 <div *ngIf="showBet && firstGame">
   <p>Welcome to the Video Poker App!</p>
@@ -10,37 +12,39 @@
   <p>You currently have {{ currentAmount }} credits. How much would you like to bet?</p>
   <form (submit)="startGame()">
     <input type="number" class="form-control" [(ngModel)]="betAmount" name="amount">
-    <br><br>
+    <br>
     <input type="submit" class="btn btn-primary" value="Bet and deal!">
   </form>
 </div>
 
 <!-- Playing stage -->
-<div *ngIf="showCards">
-  <p>Current Credits: {{ currentAmount }}</p>
-</div>
 <div *ngIf="showCards || showResult">
   <div class="card-deck">
     <div class="card" *ngFor="let card of hand.cards"
     (click)="card.hold = !card.hold"
-    [ngClass]="{'held-card' : card.hold}">
-      <p>{{ card.rank }} of {{ card.suit }}</p>
+    [ngClass]="{ 'held-card' : card.hold && !showResult }">
+      <div class="rank-suit-centered">
+        <span class="card-rank">{{ card.rank }}</span>
+        <img [src]="getImgLocation(card.suit)" height="50" width="50">
+      </div>
     </div>
-
   </div>
+  <br>
 </div>
 <div *ngIf="showCards">
-  <button (click)="swapCards()">Deal</button>
+  <p>Click on a card to hold it.</p>
+  <p>Current Credits: {{ currentAmount }}</p>
+  <button class="btn btn-primary" (click)="swapCards()">Deal</button>
 </div>
-
 <!-- Result stage -->
 <div *ngIf="showResult && currentAmount != 0">
   <p>{{ hand.result }}</p>
   <p>You now have {{ currentAmount }} credits.</p>
   <div *ngIf="currentAmount != 0">
     <p>Do you want to play again or cash out?</p>
-    <button (click)="betScreen()">Play again</button>
-    <button (click)="leaveTable()">Cash out</button>
+    <button class="btn btn-primary" (click)="betScreen()">Play again</button>
+    <button class="btn btn-primary" (click)="leaveTable()">Cash out</button>
+    <br><br>
   </div>
 </div>
 <div *ngIf="showResult && currentAmount == 0">
@@ -48,4 +52,6 @@
 </div>
 
 <!-- Cash out stage -->
-<div *ngIf="cashOut">You have cashed out with {{ currentAmount }} credits!</div>
+<div>
+  <p *ngIf="cashOut">You have cashed out with {{ currentAmount }} credits!</p>
+</div>

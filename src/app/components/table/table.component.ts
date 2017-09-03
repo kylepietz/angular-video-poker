@@ -17,7 +17,8 @@ export class TableComponent implements OnInit {
   betAmount: number = 10;
   deckComponent: DeckComponent = new DeckComponent();
   hand: Hand = {
-    cards: [], result: '',
+    cards: [],
+    result: '',
   }
   firstGame: boolean = true;
   showBet: boolean = true;
@@ -65,6 +66,10 @@ export class TableComponent implements OnInit {
     }
   }
 
+  getImgLocation(suit: string) {
+    return 'assets/suit_images/'+suit+'.jpeg';
+  }
+
   swapCards() {
     let removeIndicies: number[] = [];
     for(let i: number = 0; i < this.hand.cards.length; i++) {
@@ -87,7 +92,7 @@ export class TableComponent implements OnInit {
     let handSuits: string[] = [];
     let handRanks: string[] = [];
     let royalFlush, straightFlush, fourOfAKind, fullHouse, flush, straight, threeOfAKind, twoPair, jacksOrBetter = false;
-    DeckComponent.rankArray.push('Ace');
+    DeckComponent.rankArray.push('A');
     let modifiedRankArray: string[] = DeckComponent.rankArray;
     //making hand easier to check
     for(let card of this.hand.cards) {
@@ -175,6 +180,9 @@ export class TableComponent implements OnInit {
     this.currentAmount += this.betAmount * currentMultiplier;
     this.showCards = false;
 
+    for(let card of this.hand.cards) {
+      card.hold = false;
+    }
     DeckComponent.rankArray.splice(DeckComponent.rankArray.length-1, 1);
   }
 
