@@ -1,0 +1,51 @@
+<h1>Video Poker</h1>
+<!-- Betting stage -->
+<div *ngIf="showBet && firstGame">
+  <p>Welcome to the Video Poker App!</p>
+</div>
+<div *ngIf="showBetAmountError">
+  <p>Please enter an amount from 1 to {{ currentAmount }}.
+</div>
+<div *ngIf="showBet">
+  <p>You currently have {{ currentAmount }} credits. How much would you like to bet?</p>
+  <form (submit)="startGame()">
+    <input type="number" class="form-control" [(ngModel)]="betAmount" name="amount">
+    <br><br>
+    <input type="submit" class="btn btn-primary" value="Bet and deal!">
+  </form>
+</div>
+
+<!-- Playing stage -->
+<div *ngIf="showCards">
+  <p>Current Credits: {{ currentAmount }}</p>
+</div>
+<div *ngIf="showCards || showResult">
+  <div class="card-deck">
+    <div class="card" *ngFor="let card of hand.cards"
+    (click)="card.hold = !card.hold"
+    [ngClass]="{'held-card' : card.hold}">
+      <p>{{ card.rank }} of {{ card.suit }}</p>
+    </div>
+
+  </div>
+</div>
+<div *ngIf="showCards">
+  <button (click)="swapCards()">Deal</button>
+</div>
+
+<!-- Result stage -->
+<div *ngIf="showResult && currentAmount != 0">
+  <p>{{ hand.result }}</p>
+  <p>You now have {{ currentAmount }} credits.</p>
+  <div *ngIf="currentAmount != 0">
+    <p>Do you want to play again or cash out?</p>
+    <button (click)="betScreen()">Play again</button>
+    <button (click)="leaveTable()">Cash out</button>
+  </div>
+</div>
+<div *ngIf="showResult && currentAmount == 0">
+  <p>Looks like you're all out of credits. Thanks for playing!</p>
+</div>
+
+<!-- Cash out stage -->
+<div *ngIf="cashOut">You have cashed out with {{ currentAmount }} credits!</div>
